@@ -1,23 +1,33 @@
 pipeline {
     agent any
+    
+    tools {
+        nodejs 'nodejs'
+    }
 
     stages {
-        stage('Setup Node.js') {
+        stage('Setup') {
             steps {
-                sh 'node -v'
-                sh 'npm -v'
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh 'node -v'
+                    sh 'npm -v'
+                }
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh 'npm install'
+                }
             }
         }
         
         stage('Run Tests') {
             steps {
-                sh 'npm run test:smoke'
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh 'npm run test:smoke'
+                }
             }
         }
     }
