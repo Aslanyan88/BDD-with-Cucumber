@@ -1,7 +1,3 @@
-// wdio.conf.js
-const { SpecReporter } = require('@wdio/spec-reporter');
-const { JUnitReporter } = require('@wdio/junit-reporter');
-
 exports.config = {
     //
     // ====================
