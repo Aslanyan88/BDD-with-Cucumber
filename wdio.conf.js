@@ -1,4 +1,7 @@
 // wdio.conf.js
+const { SpecReporter } = require('@wdio/spec-reporter');
+const { JUnitReporter } = require('@wdio/junit-reporter');
+
 exports.config = {
     //
     // ====================
@@ -91,12 +94,15 @@ exports.config = {
     // Reporter Plugins
     // ==================
     // Reporters are used to report test results.
-    reporters: ['spec', ['junit', {
-        outputDir: './results',
-        outputFileFormat: function(options) {
-            return `results-${options.cid}.xml`
-        }
-    }]],
+    reporters: [
+        [SpecReporter, {}],
+        [JUnitReporter, {
+            outputDir: './results',
+            outputFileFormat: function(options) {
+                return `results-${options.cid}.xml`;
+            }
+        }]
+    ],
 
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
