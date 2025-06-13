@@ -1,14 +1,11 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'Node_20'
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Setup Node.js') {
             steps {
-                checkout scm
+                bat 'node -v'
+                bat 'npm -v'
             }
         }
         
