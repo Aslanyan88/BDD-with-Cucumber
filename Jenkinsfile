@@ -5,8 +5,9 @@ pipeline {
         stage('Setup Node.js') {
             steps {
                 sh '''
-                    curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-                    apt-get install -y nodejs
+                    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
+                    sudo apt-get update
+                    sudo apt-get install -y nodejs
                     node -v
                     npm -v
                 '''
@@ -16,15 +17,18 @@ pipeline {
         stage('Install Chrome') {
             steps {
                 sh '''
-                    apt-get update
-                    apt-get install -y chromium-browser
+                    sudo apt-get update
+                    sudo apt-get install -y chromium-browser
                 '''
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh '''
+                    sudo chown -R jenkins:jenkins .
+                    npm install
+                '''
             }
         }
         
