@@ -95,8 +95,8 @@ exports.config = {
     // ==================
     // Reporters are used to report test results.
     reporters: [
-        [SpecReporter, {}],
-        [JUnitReporter, {
+        'spec',
+        ['junit', {
             outputDir: './results',
             outputFileFormat: function(options) {
                 return `results-${options.cid}.xml`;
