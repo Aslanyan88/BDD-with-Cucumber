@@ -4,20 +4,20 @@ pipeline {
     stages {
         stage('Setup Node.js') {
             steps {
-                bat 'node -v'
-                bat 'npm -v'
+                sh 'node -v'
+                sh 'npm -v'
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
+                sh 'npm install'
             }
         }
         
         stage('Run Tests') {
             steps {
-                bat 'npm run test:smoke'
+                sh 'npm run test:smoke'
             }
         }
     }
