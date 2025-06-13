@@ -1,33 +1,36 @@
 pipeline {
     agent any
-    
-    tools {
-        nodejs 'nodejs'
-    }
 
     stages {
-        stage('Setup') {
+        stage('Setup Node.js') {
             steps {
-                nodejs(nodeJSInstallationName: 'nodejs') {
-                    sh 'node -v'
-                    sh 'npm -v'
-                }
+                sh '''
+                    curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+                    apt-get install -y nodejs
+                    node -v
+                    npm -v
+                '''
+            }
+        }
+        
+        stage('Install Chrome') {
+            steps {
+                sh '''
+                    apt-get update
+                    apt-get install -y chromium-browser
+                '''
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                nodejs(nodeJSInstallationName: 'nodejs') {
-                    sh 'npm install'
-                }
+                sh 'npm install'
             }
         }
         
         stage('Run Tests') {
             steps {
-                nodejs(nodeJSInstallationName: 'nodejs') {
-                    sh 'npm run test:smoke'
-                }
+                sh 'npm run test:smoke'
             }
         }
     }

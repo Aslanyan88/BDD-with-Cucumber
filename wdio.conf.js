@@ -35,7 +35,12 @@ exports.config = {
         browserName: 'chrome',
         'goog:chromeOptions': {
             // To run Chrome headless (without a UI), uncomment the line below.
-            // args: ['--headless', '--disable-gpu'],
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--no-sandbox',
+                '--disable-dev-shm-usage'
+            ]
         },
         acceptInsecureCerts: true
     }],
@@ -86,7 +91,12 @@ exports.config = {
     // Reporter Plugins
     // ==================
     // Reporters are used to report test results.
-    reporters: ['spec'],
+    reporters: ['spec', ['junit', {
+        outputDir: './results',
+        outputFileFormat: function(options) {
+            return `results-${options.cid}.xml`
+        }
+    }]],
 
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
