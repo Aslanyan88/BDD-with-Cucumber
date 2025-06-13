@@ -30,5 +30,4 @@ pipeline {
             junit allowEmptyResults: true, testResults: 'results/*.xml'
         }
     }
-    }
 }
